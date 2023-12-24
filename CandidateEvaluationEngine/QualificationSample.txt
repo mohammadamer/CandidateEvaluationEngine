@@ -1,0 +1,52 @@
+﻿/* Education */
+/* Education - Higher */
+{
+  "TypeOfQualification": "Education",
+  "TypeOfEducation": "Higher",
+  "YearOfEntry": 2003,
+  "YearOfGraduation": 2007,
+  "EducationalInstituteName": "SVU"
+}
+
+/* Education - MasterDegree */
+{
+  "TypeOfQualification": "Education",
+  "TypeOfEducation": "MasterDegree",
+  "YearOfEntry": 2003,
+  "YearOfGraduation": 2007,
+  "EducationalInstituteName": "SVU"
+}
+
+
+
+/* Experience*/
+/* Experience - data science - 5 yrs */
+{
+  "TypeOfQualification": "Experience",
+  "Experience": "data science",
+  "YearOfExperience": 5
+}
+
+/* Experience - data science - 5 yrs */
+{
+  "TypeOfQualification": "Experience",
+  "Experience": "manager",
+  "YearOfExperience": 5
+}
+
+
+
+/* Certification*/
+/* Certification - microsoft certified 5 yrs */
+{
+  "TypeOfQualification": "Certification",
+  "Certification": "microsoft certified",
+  "NumberOfCertificates": 5
+}
+
+/* Certification - pmp 5 yrs */
+{
+  "TypeOfQualification": "Certification",
+  "Certification": "pmp",
+  "NumberOfCertificates": 5
+}
