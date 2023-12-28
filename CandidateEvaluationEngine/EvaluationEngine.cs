@@ -10,10 +10,14 @@ namespace CandidateEvaluationEngine
 
         public void Evaluate()
         {
+            //logging...
             Console.WriteLine("Starting Evaluation.");
             Console.WriteLine("Loading Qualification.");
 
-            string qualificationJson = File.ReadAllText("Qualification.json");
+            //Persistence...
+            string qualificationJson = File.ReadAllText("C:\\PS-PlayGround\\DEV Projects\\CandidateEvaluationEngine\\CandidateEvaluationEngine\\Qualification.json");
+
+            //Encoding...
             var qualification = JsonSerializer.Deserialize<Qualification>(qualificationJson, new JsonSerializerOptions
             {
                 Converters = { new JsonStringEnumConverter() },
@@ -22,10 +26,12 @@ namespace CandidateEvaluationEngine
 
             switch (qualification?.TypeOfQualification)
             {
+                //Business rules...Several Business rules...
                 case QualificationType.Education:
                     Console.WriteLine("Evaluating Education Qualification...");
                     Console.WriteLine("Validating Qualification");
 
+                    //Vaildations...Many Validations
                     if (string.IsNullOrEmpty(qualification?.TypeOfEducation.ToString()))
                     {
                         Console.WriteLine("Education must specify Type Of Education");
@@ -50,7 +56,7 @@ namespace CandidateEvaluationEngine
                         return;
                     }
 
-
+                    //Logic...
                     int entryYear = qualification.YearOfEntry;
                     int graduationYear = qualification.YearOfGraduation;
                     int yearsOfEducation = graduationYear - entryYear;
@@ -102,6 +108,7 @@ namespace CandidateEvaluationEngine
                         return;
                     }
 
+                    //Logic...
                     // Evaluation based on specialized experience
                     int yearsOfExperience = qualification.YearOfExperience;
 
@@ -145,7 +152,7 @@ namespace CandidateEvaluationEngine
                         return;
                     }
 
-
+                    //Logic...
                     // Evaluation based on the prestige of the certification
                     int numberOfCertificates = int.Parse(qualification.NumberOfCertificates.ToString());
 
@@ -177,6 +184,7 @@ namespace CandidateEvaluationEngine
                     Console.WriteLine("Unknown Education Type");
                     break;
             }
+            Console.WriteLine("Evaluation completed.");
         }
     }
 }
