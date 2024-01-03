@@ -1,58 +1,54 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-
-namespace CandidateEvaluationEngine
+﻿namespace CandidateEvaluationEngine
 {
     public class EvaluationEngine
     {
+        public ConsoleLogger Logger { get; set; } = new ConsoleLogger();
+        public FileQualificationSource QualificationSource { get; set; } = new FileQualificationSource();
+        public JsonQualificationSerializer QualificationSerializer { get; set; } = new JsonQualificationSerializer();
         public decimal Evaluation { get; set; }
         public EvaluationEngine() { }
 
         public void Evaluate()
         {
             //logging...
-            Console.WriteLine("Starting Evaluation.");
-            Console.WriteLine("Loading Qualification.");
+            Logger.Log("Starting Evaluation.");
+            Logger.Log("Loading Qualification.");
 
             //Persistence...
-            string qualificationJson = File.ReadAllText("C:\\PS-PlayGround\\DEV Projects\\CandidateEvaluationEngine\\CandidateEvaluationEngine\\Qualification.json");
+            string qualificationJson = QualificationSource.GetQualificationFromSource();
 
             //Encoding...
-            var qualification = JsonSerializer.Deserialize<Qualification>(qualificationJson, new JsonSerializerOptions
-            {
-                Converters = { new JsonStringEnumConverter() },
-                PropertyNameCaseInsensitive = true // If you want case-insensitive property matching
-            });
+            var qualification = QualificationSerializer.GetQualificationFromJsonString(qualificationJson);
 
             switch (qualification?.TypeOfQualification)
             {
                 //Business rules...Several Business rules...
                 case QualificationType.Education:
-                    Console.WriteLine("Evaluating Education Qualification...");
-                    Console.WriteLine("Validating Qualification");
+                    Logger.Log("Evaluating Education Qualification...");
+                    Logger.Log("Validating Qualification");
 
                     //Vaildations...Many Validations
                     if (string.IsNullOrEmpty(qualification?.TypeOfEducation.ToString()))
                     {
-                        Console.WriteLine("Education must specify Type Of Education");
+                        Logger.Log("Education must specify Type Of Education");
                         return;
                     }
 
                     if (string.IsNullOrEmpty(qualification.YearOfEntry.ToString()))
                     {
-                        Console.WriteLine("Education must specify YearOfEntry");
+                        Logger.Log("Education must specify YearOfEntry");
                         return;
                     }
 
                     if (string.IsNullOrEmpty(qualification.YearOfGraduation.ToString()))
                     {
-                        Console.WriteLine("Education must specify Year Of Graduation");
+                        Logger.Log("Education must specify Year Of Graduation");
                         return;
                     }
 
                     if (string.IsNullOrEmpty(qualification.EducationalInstituteName.ToString()))
                     {
-                        Console.WriteLine("Education must specify Name Of Educational Institute");
+                        Logger.Log("Education must specify Name Of Educational Institute");
                         return;
                     }
 
@@ -93,18 +89,18 @@ namespace CandidateEvaluationEngine
                     break;
 
                 case QualificationType.Experience:
-                    Console.WriteLine("Evaluating Experience Qualification...");
-                    Console.WriteLine("Validating Qualification...");
+                    Logger.Log("Evaluating Experience Qualification...");
+                    Logger.Log("Validating Qualification...");
 
                     if (string.IsNullOrEmpty(qualification.Experience.ToString()))
                     {
-                        Console.WriteLine("Experience must specify Experience details");
+                        Logger.Log("Experience must specify Experience details");
                         return;
                     }
 
                     if (string.IsNullOrEmpty(qualification.YearOfExperience.ToString()))
                     {
-                        Console.WriteLine("Experience must specify Year Of Experience");
+                        Logger.Log("Experience must specify Year Of Experience");
                         return;
                     }
 
@@ -137,18 +133,18 @@ namespace CandidateEvaluationEngine
                     break;
 
                 case QualificationType.Certification:
-                    Console.WriteLine("Evaluating Experience Certification...");
-                    Console.WriteLine("Validating Certification...");
+                    Logger.Log("Evaluating Experience Certification...");
+                    Logger.Log("Validating Certification...");
 
                     if (string.IsNullOrEmpty(qualification.Certification.ToString()))
                     {
-                        Console.WriteLine("Certification must specify Certification details");
+                        Logger.Log("Certification must specify Certification details");
                         return;
                     }
 
                     if (string.IsNullOrEmpty(qualification.NumberOfCertificates.ToString()))
                     {
-                        Console.WriteLine("Certification must specify Number Of Certificates");
+                        Logger.Log("Certification must specify Number Of Certificates");
                         return;
                     }
 
@@ -181,10 +177,10 @@ namespace CandidateEvaluationEngine
                     break;
 
                 default:
-                    Console.WriteLine("Unknown Education Type");
+                    Logger.Log("Unknown Education Type");
                     break;
             }
-            Console.WriteLine("Evaluation completed.");
+            Logger.Log("Evaluation completed.");
         }
     }
 }
