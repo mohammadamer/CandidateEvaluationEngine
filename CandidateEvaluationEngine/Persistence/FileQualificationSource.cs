@@ -1,4 +1,4 @@
-﻿namespace CandidateEvaluationEngine
+﻿namespace CandidateEvaluationEngine.Persistence
 {
     public class FileQualificationSource
     {
