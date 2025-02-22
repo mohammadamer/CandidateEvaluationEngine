@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
 
-namespace CandidateEvaluationEngine
+namespace CandidateEvaluationEngine.Persistence
 {
     public class JsonQualificationSerializer
     {
