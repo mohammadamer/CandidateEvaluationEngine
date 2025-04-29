@@ -7,11 +7,12 @@ namespace CandidateEvaluationEngine.Persistence
     {
         public Qualification GetQualificationFromJsonString(string jsonString)
         {
-            return JsonSerializer.Deserialize<Qualification>(jsonString, new JsonSerializerOptions
+            var qualification = JsonSerializer.Deserialize<Qualification>(jsonString, new JsonSerializerOptions
             {
                 Converters = { new JsonStringEnumConverter() },
                 PropertyNameCaseInsensitive = true // If you want case-insensitive property matching
             });
+            return qualification ?? throw new InvalidOperationException("Deserialization returned null");
         }
     }
 }

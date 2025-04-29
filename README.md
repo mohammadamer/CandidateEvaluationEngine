@@ -174,7 +174,51 @@ public void SomeMethod(string something)
     Guard.Against.Foo(something, nameof(something)); // optional - provide parameter name
 }
 ```
+
+### Liskov Substitution Principle (LSP)
+Simplified: Subtypes must be substitutable for their base types without altering the correctness of the program
+
+#### Understanding LSP
+Inheritance is often described using an is-a relationship (e.g., a square is a rectangle). However, LSP refines this concept to is-substitutable-for, ensuring that derived classes maintain expected behaviors.
+A classic example is a Rectangle and Square class. A square inherently has equal sides, but a rectangle allows independent width and height. If a square is treated as a rectangle in code that modifies width and height separately, it can lead to incorrect behavior, violating LSP.
+Solutions include not inheriting Square from Rectangle or using a flag to denote a square within the Rectangle class.
+
+#### The Problem with IS-A Inheritance
+OO design often uses "is-a" (inheritance) and "has-a" (composition) relationships.
+But "is-a" alone is insufficient. LSP refines this to "is-substitutable-for".
+Example: A Square inherits from Rectangle. But enforcing square rules (equal width & height) breaks the rectangle’s expectation (width and height can be set independently), thus violating LSP.
+The square cannot be used reliably wherever a rectangle is expected.
+
+#### Detecting LSP Violations
+LSP violations typically arise in real-world applications through:
+
+Type Checks (is or as keywords in C#) – If a method needs to check an object's type to handle it differently, it likely violates LSP.
+Null Checks – If special behavior is required when a value is null, it suggests that null is not substitutable for an expected instance.
+NotImplementedExceptions – If a derived class does not implement all behaviors of its base class, it is not truly substitutable.
+
+#### Fixing LSP Violations
+Tell, Don’t Ask: Instead of checking an object’s type and conditionally executing logic, encapsulate behavior within the object itself.
+Use Design Patterns: The Null Object Pattern can replace null instances with a default behavior, ensuring substitutability.
+Refactor Inheritance: If a subclass cannot fully conform to the base class, consider composition over inheritance or rethinking class hierarchies.
+
+#### (LSP) conclusion
+Simply having an is-a relationship in object-oriented design is not enough—subtypes must be fully substitutable for their base types.
+Violating LSP often leads to violations of other SOLID principles, such as the Open-Closed Principle (OCP).
+Symptoms of LSP violations include type checks, null checks, and NotImplementedExceptions.
+Applying polymorphic design principles and avoiding improper inheritance helps maintain LSP compliance.
+
+Subtypes must preserve base type behavior and invariants.
+Watch for LSP violations via:
+1. Type checks
+2. Null checks
+3. NotImplementedExceptions
+Fix violations by:
+1. Encapsulating logic within types
+2. Avoiding special cases
+3. Ensuring full and consistent implementation of interfaces or base classes
+
 #### Useful Links
 ##### [Why you need to know OCP but don't](http://bit.ly/2LSXOuo)
 ##### [OCP by Robert Martin](http://bit.ly/2Gmxg1Z)
 ##### [OCP by Jon Skeet](http://bit.ly/2AMmprC)
+##### [Nulls Break Polymorphism](ardalis.com/nulls-break-polymorphism)
