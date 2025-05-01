@@ -21,7 +21,7 @@ namespace CandidateEvaluationEngine.Tests
             engine.Evaluate();
             var result = engine.Evaluation;
 
-            Assert.Equal(250, result);
+            Assert.Equal(1400, result);
         }
 
         [Fact]

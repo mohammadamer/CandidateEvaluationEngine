@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using CandidateEvaluationEngine.Persistence;
+using Xunit;
 
 namespace CandidateEvaluationEngine.Tests
 {
